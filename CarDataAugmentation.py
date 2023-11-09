@@ -5,6 +5,7 @@ import math
 import tensorflow as tf
 import cv2
 
+
 def rotateCar(carData, degrees):
     newImage = carData.image
     pivot = carData.bbox.center()
@@ -16,8 +17,6 @@ def rotateCar(carData, degrees):
     return carParser.CarData(carData.path, newImage, bbox)
 
 
-# Original src code: Chat GPT Version 3.5 July 27, 2023
-# https://chat.openai.com/share/11d9abfa-fab0-491c-993d-dbdaf2c1d7d7
 def rotate_bounding_box(bbox, angle, pivot):
     # Convert the angle from degrees to radians
     angle_rad = math.radians(angle)
@@ -58,13 +57,13 @@ def rotate_bounding_box(bbox, angle, pivot):
     return rotated_bbox
 
 
-    
 def rotate_image(image, angle, pivot=None):
     if pivot is None:
         pivot = tuple(np.array(image.shape[1::-1]) / 2)
     rot_mat = cv2.getRotationMatrix2D(pivot, angle, 1.0)
     result = cv2.warpAffine(image, rot_mat, image.shape[1::-1], flags=cv2.INTER_LINEAR)
     return result
+
 
 def get_preprocess_function(target_height, target_width):
   def preprocess_image(image, label):
